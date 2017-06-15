@@ -26,6 +26,90 @@ describe('new refueler().refuel', function () {
     expect(obj.state.gas).toEqual(1);
   });
 });
+
+
+describe('flyer', function () {
+  it('should be defined', function () {
+    expect(flyer).toBeDefined();
+  });
+
+  it('should be a function', function () {
+    expect(typeof flyer).toEqual('function');
+  });
+
+  it('should be a constructor', function () {
+    expect(typeof new flyer()).toEqual('object');
+  });
+  
+
+  it('should set the state object in the constructor', function () {
+
+    var state = {x:1,y:2};
+
+    expect(new flyer(state).state).toEqual(state);
+  });
+  
+
+  it('should return an object with the property, "fly"', function () {
+    expect(new flyer()).toHaveProperty('fly');
+  });
+});
+
+
+describe('flyer().fly', function () {
+  it('should be a function', function () {
+    expect(typeof new flyer().fly).toEqual('function')
+  });
+
+  it('should increment the given "state" objects "position" by 10 if its "gas" property is greater than 0', function () {
+    var state = {
+      gas: 1,
+      position: 0
+    };
+
+    var obj = composeObjects(state, new flyer(state));
+    obj.fly();
+
+    expect(obj.state.position).toEqual(10);
+  });
+
+  it('should NOT increment the given "state" objects "position" if its "gas" property is less than 1', function () {
+    var state = {
+      gas: 0,
+      position: 0
+    };
+
+    var obj = composeObjects(state, new flyer(state));
+    obj.fly();
+
+    expect(obj.state.position).toEqual(0);
+  });
+
+  it('should decrease the "gas" property on the given "state" object by 1 if its "gas" property is greater than 0', function () {
+    var state = {
+      gas: 1,
+      position: 0
+    };
+
+    var obj = composeObjects(state, new flyer(state));
+    obj.fly();
+
+    expect(obj.state.gas).toEqual(0);
+  });
+
+  it('should NOT increase the "gas" property on the given "state" object if its "gas" property is less than 1', function () {
+    var state = {
+      gas: 0,
+      position: 0
+    };
+
+    var obj = composeObjects(state, new flyer(state));
+    obj.fly();
+
+    expect(obj.state.gas).toEqual(0);
+  });
+});
+
 describe('shooter', function () {
   it('should be defined', function () {
     expect(shooter).toBeDefined();
@@ -94,77 +178,6 @@ describe('saver().save', function () {
   });
 });
 
-describe('flyer', function () {
-  it('should be defined', function () {
-    expect(flyer).toBeDefined();
-  });
-
-  it('should be a function', function () {
-    expect(typeof flyer).toEqual('function');
-  });
-
-  it('should be a constructor', function () {
-    expect(typeof new flyer()).toEqual('object');
-  });
-
-  it('should return an object with the property, "fly"', function () {
-    expect(new flyer()).toHaveProperty('fly');
-  });
-});
-
-describe('flyer().fly', function () {
-  it('should be a function', function () {
-    expect(typeof new flyer().fly).toEqual('function')
-  });
-
-  it('should increment the given "state" objects "position" by 10 if its "gas" property is greater than 0', function () {
-    var state = {
-      gas: 1,
-      position: 0
-    };
-
-    var obj = composeObjects(state, new flyer(state));
-    obj.fly();
-
-    expect(obj.state.position).toEqual(10);
-  });
-
-  it('should NOT increment the given "state" objects "position" if its "gas" property is less than 1', function () {
-    var state = {
-      gas: 0,
-      position: 0
-    };
-
-    var obj = composeObjects(state, new flyer(state));
-    obj.fly();
-
-    expect(obj.state.position).toEqual(0);
-  });
-
-  it('should decrease the "gas" property on the given "state" object by 1 if its "gas" property is greater than 0', function () {
-    var state = {
-      gas: 1,
-      position: 0
-    };
-
-    var obj = composeObjects(state, new flyer(state));
-    obj.fly();
-
-    expect(obj.state.gas).toEqual(0);
-  });
-
-  it('should NOT increase the "gas" property on the given "state" object if its "gas" property is less than 1', function () {
-    var state = {
-      gas: 0,
-      position: 0
-    };
-
-    var obj = composeObjects(state, new flyer(state));
-    obj.fly();
-
-    expect(obj.state.gas).toEqual(0);
-  });
-});
 
 describe('driver', function () {
   it('should be defined', function () {
